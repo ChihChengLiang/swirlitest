@@ -12,16 +12,18 @@ test_lesson <- function(lesson_dir) {
             source(R_file_path, local = e)
     }
     for (question in lesson) {
-        if (!is.null(question$CorrectAnswer) && 
-              question$Class == "cmd_question") {
-            print(paste(">", question$CorrectAnswer))
-            eval(parse(text = question$CorrectAnswer), envir = e)
+        if (!is.null(question["CorrectAnswer"]) &&
+              question["Class"] == "cmd_question") {
+            print(paste(">", question["CorrectAnswer"]))
+            eval(parse(text = question["CorrectAnswer"]), envir = e)
         }
     }
     print(paste("-----Testing", lesson_dir, "Done"))
     session <- sessionInfo()
     for (pkg in session$otherPkgs) {
-        detach(paste0("package:", pkg$Package), character.only = TRUE, unload = TRUE)
+        pkg_name <- paste0("package:", pkg$Package)
+        print(pkg_name)
+        detach(pkg_name, character.only = TRUE, unload = TRUE)
     }
 }
 
