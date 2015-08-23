@@ -27,7 +27,7 @@ test_lesson <- function(lesson_dir) {
     }
 }
 
-test_course <- function(course_dir) {
+test_course_dir <- function(course_dir) {
     paths <- list.dirs(course_dir, recursive = F)
     wd <- getwd()
     for (path in paths) {
@@ -36,3 +36,8 @@ test_course <- function(course_dir) {
     }
     setwd(wd)
 } 
+
+test_course_name <- function(course_name){
+  f = file.path(get_swirl_option("courses_dir"), course_name)
+  test_course_dir(f)
+}
