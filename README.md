@@ -1,6 +1,6 @@
 # swirlitest
 
-Test all lessons of a swirl course. Automatically testing a large course can't be more easier.
+Test all lessons of a swirl course. Automatically testing for a large course can't be more easier.
 
 ## Installation
 
