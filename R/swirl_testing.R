@@ -12,10 +12,18 @@ test_lesson <- function(lesson_dir) {
             source(R_file_path, local = e)
     }
     for (question in lesson) {
-        if (!is.null(question["CorrectAnswer"]) &&
-              question["Class"] == "cmd_question") {
-            print(paste(">", question["CorrectAnswer"]))
-            eval(parse(text = question["CorrectAnswer"]), envir = e)
+        if (question["Class"] == "cmd_question") {
+            if (!is.null(question["CorrectAnswer"])) {
+                print(paste(">", question["CorrectAnswer"]))
+                eval(parse(text = question["CorrectAnswer"]), envir = e)
+            }
+        } else if (question["Class"] == "script") {
+            l <- strsplit(question$Script, "[.]")[[1]]
+            correct_script_name <- paste0(l[1], "-correct.", l[2])
+            correct_script_path <- file.path(lesson_dir, correct_script_name)
+            if (file.exists(correct_script_path)) {
+                try(source(correct_script_path))
+            }
         }
     }
     print(paste("-----Testing", lesson_dir, "Done"))
