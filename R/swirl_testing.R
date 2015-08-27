@@ -43,9 +43,14 @@ test_course_dir <- function(course_dir) {
         test_lesson(path)
     }
     setwd(wd)
-} 
+}
 
-test_course_name <- function(course_name){
-  f = file.path(get_swirl_option("courses_dir"), course_name)
-  test_course_dir(f)
+test_course_name <- function(course_name) {
+    f <- file.path(swirl::get_swirl_option("courses_dir"), course_name)
+    test_course_dir(f)
+}
+
+installed_courses <- function() {
+    path <- swirl::get_swirl_option("courses_dir")
+    list.dirs(path, recursive = F, full.names = F)
 }
